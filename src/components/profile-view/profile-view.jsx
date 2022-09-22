@@ -140,7 +140,7 @@ export class ProfileView extends React.Component {
     if (day.length < 2) 
         day = '0' + day;
 
-    return [month, day, year].join('-');
+    return [month, day, year].join('/');
 }
 
   render() {
