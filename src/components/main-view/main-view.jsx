@@ -19,8 +19,6 @@ class MainView extends React.Component {
     super();
   }
 
-
-
   onLoggedOut() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");

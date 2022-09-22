@@ -16,11 +16,11 @@ export class ProfileView extends React.Component {
     super(props);
 
     this.state = {
-      Username: null,
-      Password: null,
-      Email: null,
-      Birthday: null,
-      FavoriteMovies: [],
+      Username: props.user.Username,
+      Password: props.user.Password,
+      Email: props.user.Email,
+      Birthday: props.user.Birthday,
+      FavoriteMovies: props.user.FavoriteMovies,
       modalState: false
     };
   }
@@ -39,6 +39,14 @@ export class ProfileView extends React.Component {
     e.preventDefault();
     const Username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
+
+    let obj = {
+      Username: this.state.Username,
+      Password: this.state.Password,
+      Email: this.state.Email,
+      Birthday: this.state.Birthday,
+    }
+    console.log('obj', obj)
 
     axios.put(`https://superflix-db.herokuapp.com/users/${Username}`, {
           Username: this.state.Username,
@@ -121,10 +129,24 @@ export class ProfileView extends React.Component {
     });
   }
 
+  formatDate(date) {
+    let d=new Date(date);
+    var month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
   render() {
-    console.log(this.props)
+
     const { movies, onBackClick } = this.props;
-    const { FavoriteMovies, Username, Email, Birthday, Password } = this.props.user;
+    const { FavoriteMovies, Username, Email, Birthday } = this.state;
 
     if (!Username) {
       return null;
@@ -154,7 +176,7 @@ export class ProfileView extends React.Component {
                 <Card.Title className="text-center">Profile of {Username}</Card.Title>
                 <Card.Text><span className="profile_heading">Email: </span>{Email} </Card.Text>
                 {Birthday && (
-                  <Card.Text><span className="profile_heading">Birthday: </span>{(Birthday)} </Card.Text>
+                  <Card.Text><span className="profile_heading">Birthday: </span>{(this.formatDate(Birthday))} </Card.Text>
                 )}
               </Card.Body>
             </Card>
@@ -167,7 +189,7 @@ export class ProfileView extends React.Component {
                     this.editUser(
                       e,
                       this.Username,
-                      this.Password,
+                      // this.Password,
                       this.Email,
                       this.Birthday
                     )
@@ -185,17 +207,17 @@ export class ProfileView extends React.Component {
                     />
                   </Form.Group>
 
-                  <Form.Group>
+                  {/* <Form.Group>
                     <Form.Label>Password</Form.Label>
                     <Form.Control
-                      type="password"
+                      type="text"
                       name="Password"
                       placeholder="New Password"
-                      value={Password}
+                      // value={Password}
                       onChange={(e) => this.setPassword(e.target.value)}
                       required
                     />
-                  </Form.Group>
+                  </Form.Group> */}
 
                   <Form.Group>
                     <Form.Label>Email</Form.Label>
@@ -214,7 +236,7 @@ export class ProfileView extends React.Component {
                     <Form.Control
                       type="date"
                       name="Birthday"
-                      value={Birthday}
+                      value={this.formatDate(Birthday)}
                       onChange={(e) => this.setBirthday(e.target.value)}
                     />
                   </Form.Group>

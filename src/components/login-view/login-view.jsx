@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button, Card,
   CardGroup, Col, Form, Row
@@ -15,6 +15,15 @@ export function LoginView(props) {
   //Declare hook for each input
   const [usernameErr, setUsernameErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
+
+  useEffect (()=>{
+    let user = localStorage.getItem('user')
+    let token = localStorage.getItem('token')
+    if (user&&token){
+      getUserData(user, token);
+      getMovies(token);
+    }
+  },[])
 
   // validate user inputs
   const validate = () => {
@@ -52,6 +61,20 @@ export function LoginView(props) {
       });
   };
 
+  const getUserData = (username, token) => {
+    axios
+    .get(`https://superflix-db.herokuapp.com/users/${username}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => {
+      const data = response.data;
+      console.log(data);
+      console.log(props);
+      props.setUser(data);
+      // getMovies(data?.token)
+    });
+
+  }
   const handleSubmit = (e) => {
     e?.preventDefault();
     const isReq = validate();
