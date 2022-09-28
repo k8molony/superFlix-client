@@ -74,6 +74,7 @@
 }
 
 body {
+  padding-top: 100px;
   font-family: Teko, sans-serif !important;
 }
 
@@ -85,13 +86,7 @@ body {
   box-sizing: border-box;
   color: #1d1c1c;
   background-color: #90adc6;
-  font-family: Teko, sans-serif !important;
-}
-
-@media screen and (max-width: 800px) {
-  .left, .main, .right {
-    width: 100%;
-  }
+  font-family: Montserrat, sans-serif;
 }
 
 /*# sourceMappingURL=index.27d8da6b.css.map */

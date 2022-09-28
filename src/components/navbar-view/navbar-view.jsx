@@ -22,7 +22,7 @@ export function NavbarView({user}) {
   };
 
   return (
-      <Navbar sticky="top" expand="lg" variant="dark" className="mainNavbar">
+      <Navbar fixed="top" expand="lg" variant="dark" className="mainNavbar">
         <Navbar.Brand className="navbar-logo" to="/" as={Link}>
           <img
             src="https://superflix-db.herokuapp.com/img/SuperFlixLogo.svg"
@@ -43,12 +43,6 @@ export function NavbarView({user}) {
                 onLoggedOut()
               }}>Logout</Button>
             )}
-            {/* {!isAuth() && (
-              <Link to="/">Login</Link>
-            )} */}
-            {/* {!isAuth() && (
-              <Link to="/register">Register</Link>
-            )} */}
           </div>
         </Navbar.Collapse>
       </Navbar>
