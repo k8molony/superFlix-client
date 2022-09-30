@@ -11,3 +11,8 @@ $color: steelblue;
     color: #1d1c1c;
   }
 
+  @media screen and (min-width: 800px) {
+    .movie-card {
+      width: 30%;
+    }
+  }
