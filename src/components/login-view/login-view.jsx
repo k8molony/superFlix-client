@@ -1,14 +1,12 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import {
-  Button, Card,
-  CardGroup, Col, Form, Row
-} from "react-bootstrap";
+import { Button, Card, CardGroup, Col, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./login-view.scss";
+import config from "../../config";
 
 export function LoginView(props) {
-  console.log("loginprops=",props)
+  console.log("loginprops=", props);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,14 +14,14 @@ export function LoginView(props) {
   const [usernameErr, setUsernameErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
 
-  useEffect (()=>{
-    let user = localStorage.getItem('user')
-    let token = localStorage.getItem('token')
-    if (user&&token){
+  useEffect(() => {
+    let user = localStorage.getItem("user");
+    let token = localStorage.getItem("token");
+    if (user && token) {
       getUserData(user, token);
       getMovies(token);
     }
-  },[])
+  }, []);
 
   // validate user inputs
   const validate = () => {
@@ -49,7 +47,7 @@ export function LoginView(props) {
 
   const getMovies = (token) => {
     axios
-      .get("https://superflix-db.herokuapp.com/movies", {
+      .get(`${config.API_URL}movies`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -63,25 +61,24 @@ export function LoginView(props) {
 
   const getUserData = (username, token) => {
     axios
-    .get(`https://superflix-db.herokuapp.com/users/${username}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    .then((response) => {
-      const data = response.data;
-      console.log(data);
-      console.log(props);
-      props.setUser(data);
-      // getMovies(data?.token)
-    });
-
-  }
+      .get(`${config.API_URL}users/${username}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+        console.log(props);
+        props.setUser(data);
+        // getMovies(data?.token)
+      });
+  };
   const handleSubmit = (e) => {
     e?.preventDefault();
     const isReq = validate();
     if (isReq) {
       /* Send a request to the server for authentication */
       axios
-        .post("https://superflix-db.herokuapp.com/login", {
+        .post(`${config.API_URL}login`, {
           Username: username,
           Password: password,
         })
@@ -89,10 +86,10 @@ export function LoginView(props) {
           const data = response.data;
           console.log(data);
           console.log(props);
-          localStorage.setItem("user", data.user.Username)
-          localStorage.setItem("token", data.token)
+          localStorage.setItem("user", data.user.Username);
+          localStorage.setItem("token", data.token);
           props.setUser(data.user);
-          getMovies(data?.token)
+          getMovies(data?.token);
         });
     }
   };
@@ -143,4 +140,3 @@ export function LoginView(props) {
     </Row>
   );
 }
-

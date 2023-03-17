@@ -1,12 +1,12 @@
-import React from 'react';
-import axios from 'axios';
+import React from "react";
+import axios from "axios";
 import { connect } from "react-redux";
-import MovieCard from '../movie-card/movie-card';
-import './profile-view.scss';
-import { Container, Card, Button, Row, Col, Form } from 'react-bootstrap';
-import Modal from 'react-bootstrap/Modal';
+import MovieCard from "../movie-card/movie-card";
+import "./profile-view.scss";
+import { Container, Card, Button, Row, Col, Form } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { movies, user } = state;
   return { movies, user };
 };
@@ -21,34 +21,37 @@ export class ProfileView extends React.Component {
       Email: props.user.Email,
       Birthday: props.user.Birthday,
       FavoriteMovies: props.user.FavoriteMovies,
-      modalState: false
+      modalState: false,
     };
   }
 
   onLoggedOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     this.setState({
       user: null,
     });
-    window.open('/', '_self');
+    window.open("/", "_self");
   }
 
   //Allow user to edit or update profile
   editUser = (e) => {
     e.preventDefault();
-    const Username = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
+    const Username = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
 
     let obj = {
       Username: this.state.Username,
       Password: this.state.Password,
       Email: this.state.Email,
       Birthday: this.state.Birthday,
-    }
-    console.log('obj', obj)
+    };
+    console.log("obj", obj);
 
-    axios.put(`https://superflix-db.herokuapp.com/users/${Username}`, {
+    axios
+      .put(
+        `${config.API_URL}users/${Username}`,
+        {
           Username: this.state.Username,
           Password: this.state.Password,
           Email: this.state.Email,
@@ -66,9 +69,9 @@ export class ProfileView extends React.Component {
           Birthday: response.data.Birthday,
         });
 
-        localStorage.setItem('user', this.state.Username);
+        localStorage.setItem("user", this.state.Username);
         alert("Profile updated");
-        window.open('/profile', '_self');
+        window.open("/profile", "_self");
       })
       .catch(function (error) {
         console.log(error);
@@ -77,28 +80,29 @@ export class ProfileView extends React.Component {
 
   // Show the modal to confirm you want to delete a user profile
   showModal = () => {
-    this.setState({ modalState: true })
+    this.setState({ modalState: true });
   };
 
   // Close the modal that confirms you want to delete a user profile
   closeModal = () => {
-    this.setState({ modalState: false })
+    this.setState({ modalState: false });
   };
 
   //Deregister
   onDeleteUser() {
-    const Username = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
+    const Username = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
 
-    axios.delete(`https://superflix-db.herokuapp.com/users/${Username}`, {
+    axios
+      .delete(`${config.API_URL}users/${Username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
         console.log(response);
         alert("Profile deleted");
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
-        window.open('/', '_self');
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        window.open("/", "_self");
       })
       .catch(function (error) {
         console.log(error);
@@ -130,21 +134,18 @@ export class ProfileView extends React.Component {
   }
 
   formatDate(date) {
-    let d=new Date(date);
-    var month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+    let d = new Date(date);
+    var month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
 
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
 
-    return [month, day, year].join('/');
-}
+    return [month, day, year].join("/");
+  }
 
   render() {
-
     const { movies, onBackClick } = this.props;
     const { FavoriteMovies, Username, Email, Birthday } = this.state;
 
@@ -157,9 +158,14 @@ export class ProfileView extends React.Component {
         {/* Modal specification which will display when attempting to delete a user */}
         <Modal show={this.state.modalState} onHide={this.closeModal}>
           <Modal.Header closeButton>
-            <Modal.Title>Are you sure you want to delete your user profile?</Modal.Title>
+            <Modal.Title>
+              Are you sure you want to delete your user profile?
+            </Modal.Title>
           </Modal.Header>
-          <Modal.Body>Once a user profile has been deleted, there is no way to restore it.  Are you sure you wish to continue?</Modal.Body>
+          <Modal.Body>
+            Once a user profile has been deleted, there is no way to restore it.
+            Are you sure you wish to continue?
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.closeModal}>
               Cancel
@@ -173,10 +179,18 @@ export class ProfileView extends React.Component {
           <Col>
             <Card className="show-profile">
               <Card.Body>
-                <Card.Title className="text-center">Profile of {Username}</Card.Title>
-                <Card.Text><span className="profile_heading">Email: </span>{Email} </Card.Text>
+                <Card.Title className="text-center">
+                  Profile of {Username}
+                </Card.Title>
+                <Card.Text>
+                  <span className="profile_heading">Email: </span>
+                  {Email}{" "}
+                </Card.Text>
                 {Birthday && (
-                  <Card.Text><span className="profile_heading">Birthday: </span>{(this.formatDate(Birthday))} </Card.Text>
+                  <Card.Text>
+                    <span className="profile_heading">Birthday: </span>
+                    {this.formatDate(Birthday)}{" "}
+                  </Card.Text>
                 )}
               </Card.Body>
             </Card>
@@ -241,8 +255,20 @@ export class ProfileView extends React.Component {
                     />
                   </Form.Group>
                   <div className="mt-3">
-                    <Button variant="warning" type="submit" onClick={this.editUser}>Update User</Button>
-                    <Button className="ml-3" variant="secondary" onClick={() => this.showModal()}>Delete User</Button>
+                    <Button
+                      variant="warning"
+                      type="submit"
+                      onClick={this.editUser}
+                    >
+                      Update User
+                    </Button>
+                    <Button
+                      className="ml-3"
+                      variant="secondary"
+                      onClick={() => this.showModal()}
+                    >
+                      Delete User
+                    </Button>
                   </div>
                 </Form>
               </Card.Body>
@@ -262,20 +288,27 @@ export class ProfileView extends React.Component {
               )}
               <Row className="favorite-container">
                 {FavoriteMovies.length > 0 &&
-                movies.map((movie) => {
-                  if (
-                    movie._id ===
-                    FavoriteMovies.find((fav) => fav === movie._id)
-                  ) {
-                    return (<MovieCard movie={movie} key={movie._id} />)
-                  }
-                })}
-              </Row>  
+                  movies.map((movie) => {
+                    if (
+                      movie._id ===
+                      FavoriteMovies.find((fav) => fav === movie._id)
+                    ) {
+                      return <MovieCard movie={movie} key={movie._id} />;
+                    }
+                  })}
+              </Row>
             </Card.Body>
           </Col>
         </Row>
         <div className="backButton">
-          <Button variant="dark" onClick={() => { onBackClick(null); }}>Back</Button>
+          <Button
+            variant="dark"
+            onClick={() => {
+              onBackClick(null);
+            }}
+          >
+            Back
+          </Button>
         </div>
       </Container>
     );

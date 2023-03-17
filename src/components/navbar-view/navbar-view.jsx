@@ -1,13 +1,14 @@
-import React from 'react';
-import { Navbar, Button } from 'react-bootstrap';
+import React from "react";
+import { Navbar, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import config from "../../config";
 
-import './navbar-view.scss';
+import "./navbar-view.scss";
 
-export function NavbarView({user}) {
+export function NavbarView({ user }) {
   const onLoggedOut = () => {
     localStorage.clear();
-    window.open('/', '_self');
+    window.open("/", "_self");
   };
 
   const isAuth = () => {
@@ -15,36 +16,39 @@ export function NavbarView({user}) {
       return false;
     }
     if (user) {
-      return true
+      return true;
     } else {
       return false;
     }
   };
 
   return (
-      <Navbar fixed="top" expand="lg" variant="dark" className="mainNavbar">
-        <Navbar.Brand className="navbar-logo" to="/" as={Link}>
-          <img
-            src="https://superflix-db.herokuapp.com/img/SuperFlixLogo.svg"
-            width="150"
-            height="75"
-            className="d-inline-block align-top"
-            alt="SuperFlix logo"
-          />
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
-        <Navbar.Collapse id="responsive-navbar-nav" className="mainNavbar">
-          <div className="ml-auto mainNavbar">
-            {isAuth() && (
-              <Link to="/profile">{user.Username}</Link>
-            )}
-            {isAuth() && (
-              <Button variant="link" onClick={() => {
-                onLoggedOut()
-              }}>Logout</Button>
-            )}
-          </div>
-        </Navbar.Collapse>
-      </Navbar>
-  )
+    <Navbar fixed="top" expand="lg" variant="dark" className="mainNavbar">
+      <Navbar.Brand className="navbar-logo" to="/" as={Link}>
+        <img
+          src="src/img/superFlixLogo.png"
+          width="150"
+          height="75"
+          className="d-inline-block align-top"
+          alt="SuperFlix logo"
+        />
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav" className="mainNavbar">
+        <div className="ml-auto mainNavbar">
+          {isAuth() && <Link to="/profile">{user.Username}</Link>}
+          {isAuth() && (
+            <Button
+              variant="link"
+              onClick={() => {
+                onLoggedOut();
+              }}
+            >
+              Logout
+            </Button>
+          )}
+        </div>
+      </Navbar.Collapse>
+    </Navbar>
+  );
 }
