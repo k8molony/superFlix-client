@@ -89,4 +89,10 @@ body {
   font-family: Montserrat, sans-serif;
 }
 
+@media screen and (min-width: 800px) {
+  .movie-card {
+    width: 30%;
+  }
+}
+
 /*# sourceMappingURL=index.27d8da6b.css.map */
