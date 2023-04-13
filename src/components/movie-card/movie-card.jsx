@@ -27,7 +27,7 @@ export class MovieCard extends React.Component {
 
     axios
       .post(
-        `${config.API_URL}users/${Username}/movies/${this.props.movie._id}`,
+        `${config.API_URL}/users/${Username}/movies/${this.props.movie._id}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },

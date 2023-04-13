@@ -1,50 +1,52 @@
-#SuperFlix App
+# SuperFlix App
 
 Using React, this build is for the client-side of an application called superFlix based on its existing server-side code (REST API and database).
 
-The entire application is built using the MERN (MongoDB, Express, React, and Node.js) stack. The database is a list of Marvel movies and series, and the end result will be an app that can display the movies in chronological order and give information about each of them as well as their directors, and includes the ability for users to login and save their favorite movies. 
+The entire application is built using the MERN (MongoDB, Express, React, and Node.js) stack. The database is a list of Marvel movies and series, and the end result will be an app that can display the movies in chronological order and give information about each of them as well as their directors, and includes the ability for users to login and save their favorite movies.
 
-The purpose of this repository is to create the client interface which users will use when making requests to and receiving responses from the server. 
+The purpose of this repository is to create the client interface which users will use when making requests to and receiving responses from the server.
 
-##Essential Views and Features
+## [SuperFlix App] (https://superflixheroes.netlify.app)
 
-###Main View
+## Essential Views and Features
 
-- Returns a list of ALL movies to the user (each listed with an image, title, and description.)
--Sorting and Filtering
--Ability to select a movie for more details
+- Main View
 
-###Single Movie View
+  - Returns a list of ALL movies to the user (each listed with an image, title, and description.)
+  - Sorting and Filtering
+  - Ability to select a movie for more details
 
-- Returns data (description, series, director, image) about a single movie to the user
--Allows users to add a movie to their list of favorites
+- Single Movie View
 
-###Login View
+  - Returns data (description, series, director, image) about a single movie to the user
+  - Allows users to add a movie to their list of favorites
 
--Allows users to log in with a username and password
+- Login View
 
-###Registration View
+  - Allows users to log in with a username and password
 
--Allows new users to register (username, password, email, birthday)
+- Registration View
 
-###Series View
+  - Allows new users to register (username, password, email, birthday)
 
--Returns data about a series, with a name and description
--Displays example movies 
+- Series View
 
-###Director View
+  - Returns data about a series, with a name and description
+  - Displays example movies
 
--Returns data about a director (name, bio, birth year, death year)
--Displays example movies
+- Director View
 
-###Profile view
+  - Returns data about a director (name, bio, birth year, death year)
+  - Displays example movies
 
--Allows users to update their user info (username, password, email, date of birth)
--Allows existing users to deregister
--Display favorite movies
--Allows users to remove a movie from their list of favorites
+- Profile view
 
-##Technical Requirements
+  - Allows users to update their user info (username, password, email, date of birth)
+  - Allows existing users to deregister
+  - Display favorite movies
+  - Allows users to remove a movie from their list of favorites
+
+## Technical Requirements
 
 -The app must be a single-page application (SPA)
 -The app must use state routing to navigate between views and shre URLs
@@ -56,3 +58,9 @@ The purpose of this repository is to create the client interface which users wil
 -The app must use Bootstrap as a UI library for styling and responsiveness
 -The app must contain a mix os class components and function components
 -The app may be hosted online
+
+## App Views
+
+<img src="src/img/SuperflixLoginView.png" alt="screenchot of login view of superFlix" width="100%">
+<img src="src/img/superflixMovieView.png" alt="screenchot of movie view of superFlix" width="100%">
+<img src="src/img/superFlixProfileView.png" alt="screenchot of profile view of superFlix" width="100%">

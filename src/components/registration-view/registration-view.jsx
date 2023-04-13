@@ -51,7 +51,7 @@ export function RegistrationView(props) {
     const isReq = validate();
     if (isReq) {
       axios
-        .post("${config.API_URL}users", {
+        .post("${config.API_URL}/users", {
           Username: username,
           Password: password,
           Email: email,
