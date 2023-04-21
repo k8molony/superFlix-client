@@ -61,6 +61,6 @@ The purpose of this repository is to create the client interface which users wil
 
 ## App Views
 
-<img src="src/img/SuperflixLoginView.png" alt="screenchot of login view of superFlix" width="100%">
-<img src="src/img/superflixMovieView.png" alt="screenchot of movie view of superFlix" width="100%">
-<img src="src/img/superFlixProfileView.png" alt="screenchot of profile view of superFlix" width="100%">
+<img src="/img/SuperflixLoginView.png" alt="screenchot of login view of superFlix" width="100%">
+<img src="/img/superflixMovieView.png" alt="screenchot of movie view of superFlix" width="100%">
+<img src="/img/superFlixProfileView.png" alt="screenchot of profile view of superFlix" width="100%">
