@@ -63,8 +63,24 @@
 .mainNavbar {
   box-sizing: border-box;
   color: #1d1c1c;
-  background-color: #1d1c1c;
+  background-color: #333652;
+  align-items: center;
   font-family: Montserrat, sans-serif;
+  display: flex;
+}
+
+.mainNavbar.ml-auto {
+  flex-direction: column;
+}
+
+.mainNavbar img {
+  width: 150px;
+}
+
+@media screen and (min-width: 991px) {
+  .mainNavbar.ml-auto {
+    flex-direction: row;
+  }
 }
 
 .main-view {

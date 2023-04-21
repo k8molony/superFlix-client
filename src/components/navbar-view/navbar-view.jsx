@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+// import logoSVG from "../../svg/SFLogo";
 
 import "./navbar-view.scss";
 
@@ -25,9 +26,7 @@ export function NavbarView({ user }) {
     <Navbar fixed="top" expand="lg" variant="dark" className="mainNavbar">
       <Navbar.Brand className="navbar-logo" to="/" as={Link}>
         <img
-          src="../img/superFlixLogo.png"
-          width="150"
-          height="75"
+          src="/img/SFLogo.svg"
           className="d-inline-block align-top"
           alt="SuperFlix logo"
         />
